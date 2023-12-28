@@ -1,21 +1,46 @@
 
-# ------------HISHAB-------------
-Hishab is a daily expence project. this projects backend is createing using FastAPI python framework.
+# Hishab - Daily Expense Project
 
-##  command lines
-Step 1: instal Virtual environment-
-        $pip install virtualenv
-Step 2: setting variable for virtualenv
-        $virtualenv venv
-Step 3: Activate virtualenv:
-        $source venv/bin/activate
-Step 4: create index.py file using command:
-        $touch index.py
-Step 5: install XAMPP from: https://www.apachefriends.org/
- ##        MAC:
-            if mac not support then use this command then try again. #otherwise no need to do this command:
-            $xattr -dr com.apple.quarantine /Users/mac-m2/Downloads/xampp-osx-8.2.4-0-installer.app
-Step 6: install FastAPI, SQLAlchemy, PyMySQL, Uvicorn:
-        $pip install fastapi sqlalchemy pymysql uvicorn
-Step 7: for jwt auth-
-        $pip install python-jose pyjwt passlib
+Hishab is a daily expense project, and its backend is created using the FastAPI Python framework.
+
+## Command Lines
+
+Follow these steps to set up and run the project:
+
+### Step 1: Install Virtual Environment 
+```bash
+$ pip install virtualenv
+
+### Step 2: Set Up Virtual Environment
+
+$ virtualenv venv
+### Step 3: Activate Virtual Environment
+
+$ source venv/bin/activate
+### Step 4: Create index.py File
+
+$ touch index.py
+### Step 5: Install XAMPP
+Download and install XAMPP from https://www.apachefriends.org/
+
+For Mac Users
+If your Mac does not support XAMPP, use the following command, then try again. Otherwise, skip this step:
+
+
+$ xattr -dr com.apple.quarantine /Users/mac-m2/Downloads/xampp-osx-8.2.4-0-installer.app
+### Step 6: Install Dependencies
+
+$pip install fastapi sqlalchemy pymysql uvicorn
+### Step 7: Install JWT Authentication Dependencies
+
+$ pip install python-jose pyjwt passlib
+Project Configuration
+Make sure to configure your project settings appropriately before running. Check and update the configuration files accordingly.
+
+Running the Project
+Once everything is set up and configured, run the project using the following command:
+
+$ uvicorn index:app --reload
+Visit http://127.0.0.1:8000/ in your browser to access the Hishab project.
+
+Feel free to explore and manage your daily expenses with Hishab!
