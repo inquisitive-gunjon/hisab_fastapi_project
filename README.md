@@ -12,15 +12,16 @@ Follow these steps to set up and run the project:
 $ pip install virtualenv
 
 ### Step 2: Set Up Virtual Environment
-
+```bash
 $ virtualenv venv
 ### Step 3: Activate Virtual Environment
-
+```bash
 $ source venv/bin/activate
 ### Step 4: Create index.py File
-
+```bash
 $ touch index.py
 ### Step 5: Install XAMPP
+```bash
 Download and install XAMPP from https://www.apachefriends.org/
 
 For Mac Users
@@ -29,7 +30,7 @@ If your Mac does not support XAMPP, use the following command, then try again. O
 
 $ xattr -dr com.apple.quarantine /Users/mac-m2/Downloads/xampp-osx-8.2.4-0-installer.app
 ### Step 6: Install Dependencies
-
+```bash
 $pip install fastapi sqlalchemy pymysql uvicorn
 ### Step 7: Install JWT Authentication Dependencies
 
