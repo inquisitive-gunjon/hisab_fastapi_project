@@ -17,3 +17,5 @@ Step 5: install XAMPP from: https://www.apachefriends.org/
             $xattr -dr com.apple.quarantine /Users/mac-m2/Downloads/xampp-osx-8.2.4-0-installer.app
 Step 6: install FastAPI, SQLAlchemy, PyMySQL, Uvicorn:
         $pip install fastapi sqlalchemy pymysql uvicorn
+Step 7: for jwt auth-
+        $pip install python-jose pyjwt passlib
