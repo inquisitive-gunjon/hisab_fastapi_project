@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, APIRouter
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
@@ -6,9 +6,11 @@ from sqlalchemy.orm import sessionmaker, Session
 from pydantic import BaseModel
 from jose import JWTError, jwt #pip install python-jose pyjwt passlib
 from passlib.context import CryptContext
-from typing import List
+from typing import List, Annotated
 from datetime import datetime, timedelta
-
+from starlette import status
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+import auth
 # Replace 'mysql+pymysql://username:password@localhost/database' with your MySQL connection details
 DATABASE_URL = "mysql+pymysql://root@localhost:3306/hishabproject"
 SECRET_KEY = "your-secret-key"  # Replace with a strong secret key
@@ -78,6 +80,7 @@ def verify_token(token: str = Depends(oauth2_scheme)):
     return username
 
 app = FastAPI()
+app.include_router(auth.router)
 
 # Create a new user
 @app.post("/users/", response_model=UserBase, dependencies=[Depends(verify_token)])
