@@ -41,6 +41,9 @@ $pip install fastapi sqlalchemy pymysql uvicorn
 ```bash
 $ pip install python-jose pyjwt passlib
 ```
+```bash
+$ pip install bcrypt
+```
 Project Configuration
 Make sure to configure your project settings appropriately before running. Check and update the configuration files accordingly.
 
