@@ -12,15 +12,19 @@ from starlette import status
 from database import SessionLocal
 from models import Users
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from dotenv import load_dotenv
+import os
 
 
+load_dotenv()
 
 router =  APIRouter(
     prefix= '/auth',
     tags=['auth']
 )
 
-SECRET_KEY = ''
+# SECRET_KEY = 'super-secret-6FDFBB8F-2909-4565-85EA-3F685784355E'
+SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = 'HS256'
 
 bcrypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
@@ -32,7 +36,7 @@ class CreateUserRequest(BaseModel):
     email:str
     password: str
 
-class token(BaseModel):
+class Token(BaseModel):
     access_token: str
     token_type: str
 
@@ -55,3 +59,28 @@ async def create_user(db: db_dependency, create_user_request:CreateUserRequest):
 
     db.add(create_user_model)
     db.commit()
+
+@router.post("/sign_in", response_model= Token)
+async def login_for_access_token(form_data:Annotated[OAuth2PasswordRequestForm, Depends()],db:db_dependency):
+    user=authenticate_user(form_data.username, form_data.password, db)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="could not validate user.")
+    token = create_access_token(user.username,user.id,timedelta(minutes=20))
+
+    return {'access_token': token, 'token_type':'bearer'}
+
+
+def authenticate_user(username:str, password: str, db: db_dependency):
+    user = db.query(Users).filter(Users.username == username).first()
+
+    if not user:
+        return False
+    if not bcrypt_context.verify(password, user.hashed_password):
+        return False
+    return user
+
+def create_access_token(username:str, user_id: int,expires_delta: timedelta):
+    encode = {"sub":username,"id": user_id}
+    expires = datetime.utcnow() + expires_delta
+    encode.update({"exp":expires})
+    return jwt.encode(encode,SECRET_KEY,algorithm=ALGORITHM)

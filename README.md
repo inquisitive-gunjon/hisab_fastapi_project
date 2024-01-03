@@ -47,6 +47,65 @@ $ pip install bcrypt
 Project Configuration
 Make sure to configure your project settings appropriately before running. Check and update the configuration files accordingly.
 
+In FastAPI, you can store sensitive information like the `SECRET_KEY` in environment variables to keep them secure. Here's a step-by-step guide on how to hide the `SECRET_KEY` using environment variables:
+
+1. **Install python-dotenv:**
+
+   You can use the `python-dotenv` package to load environment variables from a `.env` file. Install it using:
+
+   ```bash
+   pip install python-dotenv
+   ```
+
+2. **Create a .env file:**
+
+   Create a file named `.env` in your project directory and add your `SECRET_KEY` to it:
+
+   ```env
+   SECRET_KEY=my_secret_key_here
+   ```
+
+   Replace `my_secret_key_here` with your actual secret key.
+
+3. **Load environment variables in your FastAPI app:**
+
+   In your FastAPI app, use `load_dotenv` from `python-dotenv` to load the environment variables from the `.env` file. Modify your main FastAPI script (`main.py` or similar) as follows:
+
+   ```python
+   from fastapi import FastAPI
+   from dotenv import load_dotenv
+
+   load_dotenv()  # Load environment variables from .env file
+
+   app = FastAPI()
+
+   # Access your secret key using os.getenv
+   SECRET_KEY = os.getenv("SECRET_KEY")
+
+   @app.get("/")
+   def read_root():
+       return {"Hello": "World"}
+   ```
+
+   Now, `SECRET_KEY` will be populated with the value from the `.env` file.
+
+4. **Add .env to .gitignore:**
+
+   To ensure that your `.env` file is not shared in version control systems, add it to your `.gitignore` file. Create a `.gitignore` file if you don't have one and add the following line:
+
+   ```
+   .env
+   ```
+
+   This prevents the `.env` file from being included in your Git repository.
+
+By following these steps, you keep sensitive information like the `SECRET_KEY` separate from your codebase, making it easier to manage and more secure. Always remember not to share your secret keys or sensitive information publicly.
+
+
+Make sure you also have the .env file in your project directory with the SECRET_KEY specified.
+
+If the problem persists, ensure that your virtual environment is activated or that you are installing the package in the correct Python environment where your FastAPI application is running.
+
 Running the Project
 Once everything is set up and configured, run the project using the following command:
 ```bash
