@@ -12,19 +12,19 @@ from starlette import status
 from database import SessionLocal
 from models import Users
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-from dotenv import load_dotenv
-import os
+# from dotenv import load_dotenv
+# import os
 
 
-load_dotenv()
+# load_dotenv()
 
 router =  APIRouter(
     prefix= '/auth',
     tags=['auth']
 )
 
-# SECRET_KEY = 'super-secret-6FDFBB8F-2909-4565-85EA-3F685784355E'
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = 'super-secret-6FDFBB8F-2909-4565-85EA-3F685784355E'
+# SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = 'HS256'
 
 bcrypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
