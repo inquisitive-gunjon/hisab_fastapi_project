@@ -12,7 +12,7 @@ from starlette import status
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 import auth
 # Replace 'mysql+pymysql://username:password@localhost/database' with your MySQL connection details
-DATABASE_URL = "mysql+pymysql://root@localhost:3306/hishabproject"
+DATABASE_URL = "mysql+pymysql://root@127.0.0.1:3306/hishabproject"
 SECRET_KEY = "your-secret-key"  # Replace with a strong secret key
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
